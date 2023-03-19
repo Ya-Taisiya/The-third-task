@@ -1,0 +1,56 @@
+#include <iostream>
+#include <time.h>
+#include <iomanip>
+
+using namespace std;
+
+void main(void)
+{
+	int **a;
+	int n;
+
+	setlocale(LC_ALL, "Ru");
+
+	cout << "Введите размерность матрицы: ";
+	cin >> n;
+
+	a = new int*[n];
+	for (int i = 0; i < n; i++)
+		a[i] = new int[n];
+
+	srand(time(0));
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			a[i][j] = -5 + rand() % 10;
+
+	cout << "\nМатрица имеет вид:" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+			cout << setw(10) << a[i][j];
+		cout << endl;
+	}
+
+	for (int i = 0; i < (n - 1); i++)
+	{
+		int index_min = i;
+		for (int j = (i + 1); j < n; j++)
+			if (a[0][j] < a[0][index_min])
+				index_min = j;
+
+		if (index_min != i)
+		{
+			int swap = a[0][i];
+			a[0][i] = a[0][index_min];
+			a[0][index_min] = swap;
+		}
+	}
+
+	cout << "\nУпорядоченная матрица (первая строка по возрастанию)" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+			cout << setw(10) << a[i][j];
+		cout << endl;
+	}
+}
